@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Product Start -->
+    <div class="container mt-5 pt-5" >
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-0 gx-5 align-items-end">
+                
+                    <!-- قسم العنوان -->
+                    <div class="col-lg-6 text-end order-lg-last">
+                        <div class="section-header mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                            <h1 class="display-5 mb-3">منتجاتنا</h1>
+                            <p></p>
+                        </div>
+                    </div>
+                    <!-- قسم الأزرار -->
+                    <div class="col-lg-6 text-start order-lg-first">
+                        <ul class="nav nav-pills d-inline-flex justify-content-start mb-5">
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" href="#tab-1">صيفية</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">شتوية</a>
+                            </li>
+                            <li class="nav-item me-0">
+                                <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">ازهار</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            {% for seed in seed %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="product-item">
+                                        <div class="position-relative bg-light overflow-hidden">
+                                            <img class="img-fluid w-100" src="{{ seed.img_s.url }}" alt="{{ seed.name_s }}" style="height: 370px;">
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <a class="d-block h5 mb-2" href="">{{ seed.name_s }}</a>
+                                        </div>
+                                        <div class="d-flex border-top">
+                                            <small class="w-50 text-center border-end py-2">
+                                                <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>عرض التفاصيل</a>
+                                            </small>
+                                            <small class="w-50 text-center py-2">
+                                                <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>أضف إلى السلة</a>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                                    <div class="row g-4"></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if show_more %}
+                            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                                <a class="btn btn-primary rounded-pill py-3 px-5" href="?show=all">تصفح المزيد من المنتجات</a>
+                            </div>
+                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product End -->
+{% endblock content %}
