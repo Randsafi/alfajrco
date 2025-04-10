@@ -125,7 +125,7 @@ SESSION_COOKIE_SECURE = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'myproject/static')
+    os.path.join(BASE_DIR, 'alfajr/static')
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
