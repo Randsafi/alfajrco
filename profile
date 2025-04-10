@@ -1,1 +1,1 @@
-web: gunicorn alfajr.wsgi
+web: gunicorn alfajr.wsgi:application
