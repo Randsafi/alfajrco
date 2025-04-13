@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-98hdrh!*m3vxadau)bhn-*$@2$w@6v(fd0eim71qy$5@qu&ab=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['alfajrco.onrailway.app','localhost','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://alfajrco.up.railway.app']
 
@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'alfajr/static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
