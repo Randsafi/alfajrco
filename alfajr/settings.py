@@ -55,11 +55,30 @@ TEMPLATES = [
 WSGI_APPLICATION = 'alfajr.wsgi.application'
 
 DATABASES = {
-    'default': dj_database_url.config(
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # استخدام SQLite
+        'NAME': BASE_DIR / 'db.sqlite3',  # قاعدة بيانات SQLite
+    },
+    #'mysql_db': {
+    #    'ENGINE': 'django.db.backends.mysql',  # استخدام MySQL
+    #    'NAME': 'alfajr',
+    #    'USER': 'root',
+    #    'PASSWORD': 'r80750497',
+    #    'HOST': 'localhost',
+    #    'PORT': '3306',
+    #},
+
+    'postgole': dj_database_url.config(
         default='sqlite:///db.sqlite3',
         conn_max_age=600
     )
+
+    
 }
+
+
+   
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
