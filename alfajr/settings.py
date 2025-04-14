@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-98hdrh!*m3vxadau)bhn-*$@2$w@6v(fd0eim71qy$5@qu&ab='
 
 DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://alfajrco.up.railway.app']
