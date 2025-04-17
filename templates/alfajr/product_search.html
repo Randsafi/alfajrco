@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 pt-5" dir="rtl">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-0 gx-5 align-items-end">
+                    <form class="d-flex" action="{% url 'search' %}" method="GET">
+                        {% csrf_token %}
+                        {{ query }}
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                      </form>
+                    </div>
+                </div>
+         </div>
+       <h1>نتائج البحث</h1>
+       <p>لقد بحثت عن:""</p>
+       <div class="tab-content">
+          <div id="tab-1" class="tab-pane fade show p-0 active">
+              <div lass="row g-4">
+                 {% if results %}
+                     {% for seeds in results %}
+                             <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                                 <div class="product-item">
+                                     <div class="position-relative bg-light overflow-hidden">
+                                         <img src="{{ seeds.img_url }}" alt="{{ seeds.name_s }}" style="width:100%; height: auto;">
+                                     </div>
+                                     <div class="text-center p-4">
+                                         <a class="d-block h5 mb-2" href="">{{ seeds.name_s }}</a>
+                                     </div>
+                                     <div class="d-flex border-top">
+                                         <small class="w-50 text-center border-end py-2">
+                                             <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>عرض التفاصيل</a>
+                                         </small>
+                                         <small class="w-50 text-center py-2">
+                                             <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>أضف إلى السلة</a>
+                                         </small>
+                                     </div>
+                                 </div>
+                             </div>
+                             {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                                 <div class="row g-4"></div>
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                     {% if show_more %}
+                         <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                             <a class="btn btn-primary rounded-pill py-3 px-5" href="?show=all">تصفح المزيد من المنتجات</a>
+                         </div>
+                      {% endif %}
+      
+                 {% else %}
+                    <h2>لايوجد نتائج</h2>
+                 {% endif %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}

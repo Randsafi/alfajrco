@@ -8,23 +8,23 @@
                 <div class="row g-0 gx-5 align-items-end">
                 
                     <!-- قسم العنوان -->
-                    <div class="col-lg-6 text-end order-lg-last">
-                        <div class="section-header mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                            <h1 class="display-5 mb-3">منتجاتنا</h1>
-                            <p></p>
-                        </div>
-                    </div>
+                    <div dir="rtl">
+                        <h1 class="display-5 mb-3">منتجاتنا</h1>
+                        
                     <!-- قسم الأزرار -->
                     <div class="col-lg-6 text-start order-lg-first">
                         <ul class="nav nav-pills d-inline-flex justify-content-start mb-5">
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" href="#tab-1">صيفية</a>
+                                <a class="btn btn-outline-primary border-2 {% if category == 'summer' %}active{% endif %}" href="{% url 'product' 'summer' %}">صيفية</a>
                             </li>
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">شتوية</a>
+                                <a class="btn btn-outline-primary border-2 {% if category == 'winter' %}active{% endif %}" href="{% url 'product' 'winter' %}">شتوية</a>
                             </li>
-                            <li class="nav-item me-0">
-                                <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">ازهار</a>
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary border-2 {% if category == 'kilo' %}active{% endif %}" href="{% url 'product' 'kilo' %}">كلوات</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary border-2 {% if category == 'flower' %}active{% endif %}" href="{% url 'product' 'flower' %}">أزهار</a>
                             </li>
                         </ul>
                     </div>
@@ -37,7 +37,7 @@
                                 <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="product-item">
                                         <div class="position-relative bg-light overflow-hidden">
-                                            <img src="{{ MEDIA_URL }}{{ seed.img_s.url }}" alt="{{ seed.name_s }}" style="width: 250px; height: auto;">
+                                            <img src="{{ seed.img_url }}" alt="{{ seed.name_s }}" style="width: 100%; height: auto;">
                                         </div>
                                         <div class="text-center p-4">
                                             <a class="d-block h5 mb-2" href="">{{ seed.name_s }}</a>
@@ -69,4 +69,5 @@
     </div>
 
     <!-- Product End -->
+    <script src= "{% static 'js/script.js' %}"></script>
 {% endblock content %}
