@@ -8,9 +8,19 @@ def pagehome(request):
     return render(request,'alfajr/index.html')
 
 def product(request, category):
-    all_seeds = seeds.objects.filter(catgory=category)
+    all_seeds = seeds.objects.filter(catgory=category).order_by('name_s')
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.GET.get('show') == 'all':
+        results = []
+        for seed in all_seeds:
+            results.append({
+                'name_s': seed.name_s,
+                'img_url': seed.img_url,
+            })
+        return JsonResponse({'seeds': results})
+
     if request.GET.get('show') == 'all':
-        first_seeds = all_seeds  # عرض الكل
+        first_seeds = all_seeds
         show_more = False
     else:
         first_seeds = all_seeds[:8]
@@ -29,7 +39,7 @@ def search(request):
     if request.method == 'GET' and query.is_valid():
         search_query = query.cleaned_data.get('search_query')
         if search_query:  # ← فقط إذا المستخدم كتب شي
-            results = seeds.objects.filter(name_s__icontains=search_query)
+            results = seeds.objects.filter(name_s__icontains=search_query).order_by('name_s')
 
     return render(request, 'alfajr/product_search.html', {'results': results, 'query': query})
 
@@ -48,11 +58,3 @@ def search_e(request):
         return JsonResponse(results, safe=False)
     return JsonResponse([], safe=False)
 
-#def search_product(request):
-#    query = request.GET.get('q', '')
-#    if query:
-#        results = seeds.objects.filter(name_s__icontains=query).values('name_s', 'img_s')
-#        data = list(results)
-#    else:
-#        data = []
-#    return JsonResponse(data, safe=False)

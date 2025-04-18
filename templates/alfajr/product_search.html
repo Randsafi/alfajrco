@@ -24,7 +24,7 @@
                              <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                                  <div class="product-item">
                                      <div class="position-relative bg-light overflow-hidden">
-                                         <img src="{{ seeds.img_url }}" alt="{{ seeds.name_s }}" style="width:100%; height: auto;">
+                                         <img src="{{ seeds.img_url }}" alt="{{ seeds.name_s }}" style="width:100%; height: 273px;">
                                      </div>
                                      <div class="text-center p-4">
                                          <a class="d-block h5 mb-2" href="">{{ seeds.name_s }}</a>
@@ -45,9 +45,10 @@
                          {% endfor %}
                      </div>
                      {% if show_more %}
-                         <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                             <a class="btn btn-primary rounded-pill py-3 px-5" href="?show=all">تصفح المزيد من المنتجات</a>
+                         <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s" id="show-more-btn">
+                            <button class="btn btn-primary rounded-pill py-3 px-5" onclick="loadMore('{{ category }}')">تصفح المزيد من المنتجات</button>
                          </div>
+
                       {% endif %}
       
                  {% else %}

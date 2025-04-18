@@ -31,18 +31,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="contact.html" class="nav-item nav-link">اتصل بنا</a>
-                    <a href="about.html" class="nav-item nav-link"> من نحن </a>
+                    <a href="{% url 'home' %}" class="nav-item nav-link active">الصفحة الرئيسية</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> المنتجات</a>
                         <div class="dropdown-menu m-0">
                             <a href="{% url 'product' category='summer' %}" class="dropdown-item">منتجات صيفية</a>
                             <a href="{% url 'product' category='winter' %}" class="dropdown-item">منتجات شتوية</a>
-                            <a href="{% url 'product' category='m' %}" class="dropdown-item">منتجات موسمية</a>
+                            <a href="{% url 'product' category='kilo' %}" class="dropdown-item">كلوات</a>
                             <a href="{% url 'product' category='flower' %}" class="dropdown-item">زهور</a>
                         </div>
                     </div>
-                    <a href="{% url 'home' %}" class="nav-item nav-link active">الصفحة الرئيسية</a>
+                    <a href="contact.html" class="nav-item nav-link">اتصل بنا</a>
+                    <a href="about.html" class="nav-item nav-link"> من نحن </a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
                     
