@@ -41,8 +41,7 @@
                             <a href="{% url 'product' category='flower' %}" class="dropdown-item">زهور</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">اتصل بنا</a>
-                    <a href="about.html" class="nav-item nav-link"> من نحن </a>
+                    <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#contactModal">اتصل بنا</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
                     
@@ -60,6 +59,28 @@
         </nav>
     </div>
     <!-- Navbar End -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" dir="rtl">
+          <div class="modal-header">
+            <h5 class="modal-title" id="contactModalLabel">تواصل معنا</h5>
+            <div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+          </div>
+          <div class="modal-body text-end">
+            <p><strong>رقم الهاتف:</strong> +012 2256631</p>
+            <p><strong>واتساب:</strong> +963 944 443 023</p>
+            <p><strong>فيسبوك:</strong> <a href="https://facebook.com/yourpage" target="_blank">facebook.com/yourpage</a></p>
+            <p><strong>انستغرام:</strong> <a href="https://instagram.com/yourpage" target="_blank">@yourpage</a></p>
+            <p><strong>البريد الإلكتروني:</strong> alfajrcos4@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <script>
     document.getElementById('search-input').addEventListener('input', function () {

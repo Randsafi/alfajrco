@@ -47,4 +47,18 @@
     </div>
     <!-- Carousel End -->
 
+    <div class="row g-4">
+        {% for cat in categories %}
+            <div class="col-md-3">
+                <a href="{% url 'product' cat %}" class="card zoom-card text-decoration-none text-dark">
+                    <img src="{% static 'img/'|add:cat|add:'.jpg' %}" class="card-img-top" alt="{{ cat }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ cat }}</h5>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+
 {% endblock%}

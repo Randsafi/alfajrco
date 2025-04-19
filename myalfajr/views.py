@@ -5,7 +5,9 @@ from .forms import SEED_SEARCH
 # Create your views here.
 
 def pagehome(request):
-    return render(request,'alfajr/index.html')
+    categories = seeds.objects.values_list('catgory', flat=True).distinct()
+    print("الفئات الموجودة بدون تكرار:", list(categories))
+    return render(request,'alfajr/index.html' ,{'categories':categories})
 
 def product(request, category):
     all_seeds = seeds.objects.filter(catgory=category).order_by('name_s')

@@ -12,6 +12,7 @@ class seeds(models.Model):
     name_s=models.CharField(max_length=225)
     catgory=models.CharField(choices=x ,default='m')
     img_url = models.URLField(max_length=500, blank=True)  # هون بدلنا بـ URLField
+    classification = models.CharField(blank=True ,default="")
     descript = models.TextField(blank=True ,default="")
     
 
