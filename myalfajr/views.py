@@ -13,31 +13,12 @@ def pagehome(request):
 
 def product(request, category):
     # جلب كل المنتجات من الفئة المحددة
-    all_seeds = seeds.objects.filter(catgory=category).order_by('name_s')
+    all_seeds = seeds.objects.filter(catgory=category).order_by('classification')
 
-    # تجميع المنتجات حسب الـ classification
-    groups = defaultdict(list)
-    normal_products = []
-    for s in all_seeds:
-        if s.classification:
-            groups[s.classification].append(s)
-        else:
-            normal_products.append(s)
-
-    # نهيّئ قائمتين: sliders للمجموعات الأكبر من 1، والباقي يبقى في normal_products
-    slider_groups = []
-    for cls, items in groups.items():
-        if len(items) > 1:
-            slider_groups.append({
-                'classification': cls,
-                'items': items
-            })
-        else:
-            normal_products.extend(items)
 
     return render(request, 'alfajr/product.html', {
-        'slider_groups': slider_groups,
-        'normal_products': normal_products,
+        'seed': all_seeds,
+        
         'category': category,
     })
 
