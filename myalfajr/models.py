@@ -15,6 +15,6 @@ class seeds(models.Model):
     classification = models.CharField(blank=True ,default="")
     descript = models.TextField(blank=True ,default="")
     
-    def __str__(self):
-        return self.name_s
+   # def __str__(self):
+   #     return self.name_s
     
