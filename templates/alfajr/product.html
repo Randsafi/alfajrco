@@ -1,97 +1,127 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<!-- Product Start -->
 <div class="container mt-5 pt-5">
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-0 gx-5 align-items-end">
-                <!-- قسم العنوان -->
-                <div dir="rtl">
-                    <h1 class="display-5 mb-3">منتجاتنا</h1>
+  <h1 class="display-5 mb-4 text-center">منتجاتنا</h1>
 
-                    <!-- قسم الأزرار -->
-                    <div class="col-lg-6 text-start order-lg-first">
-                        <ul class="nav nav-pills d-inline-flex justify-content-start mb-5">
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 {% if category == 'summer' %}active{% endif %}" href="{% url 'product' 'summer' %}">صيفية</a>
-                            </li>
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 {% if category == 'winter' %}active{% endif %}" href="{% url 'product' 'winter' %}">شتوية</a>
-                            </li>
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 {% if category == 'kilo' %}active{% endif %}" href="{% url 'product' 'kilo' %}">كلوات</a>
-                            </li>
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 {% if category == 'flower' %}active{% endif %}" href="{% url 'product' 'flower' %}">أزهار</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+  {# 1) Sliders لكل مجموعة classification فيها أكثر من عنصر #}
+  {% for group in slider_groups %}
+    <h4 class="mb-3 text-end">{{ group.label }}</h4>
+    <div class="swiper-container mb-5">
+      <div class="swiper-wrapper">
+        {% for seed in group.items %}
+          <div class="swiper-slide">
+            <div class="product-item" style = "width:250">
+              <div class="position-relative bg-light overflow-hidden">
+                <img src="{{ seed.img_url }}"
+                     alt="{{ seed.name_s }}"
+                     style="width:100%; height:350px; object-fit:cover;">
+              </div>
+              <div class="text-center p-3">
+                <h6>{{ seed.name_s }}</h6>
+              </div>
+              <div class="d-flex border-top">
+            <small class="w-50 text-center border-end py-2">
+              <a class="text-body" href="#" data-bs-toggle="modal"
+                 data-bs-target="#seedModal{{ seed.pk }}">
+                <i class="fa fa-eye text-primary me-2"></i>عرض التفاصيل
+              </a>
+            </small>
+            <small class="w-50 text-center py-2">
+              <a class="text-body" href="#">
+                <i class="fa fa-shopping-bag text-primary me-2"></i>أضف إلى السلة
+              </a>
+            </small>
+          </div>
             </div>
-
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade show p-0 active">
-                    <div class="row g-4">
-                        {% for seed in seed %}
-                        <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img src="{{ seed.img_url }}" alt="{{ seed.name_s }}" style="width: 100%; height: 300px;">
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="#">{{ seed.name_s }}</a>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href="#" data-bs-toggle="modal" data-bs-target="#seedModal{{ seed.pk }}">
-                                            <i class="fa fa-eye text-primary me-2"></i>عرض التفاصيل
-                                        </a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>أضف إلى السلة</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal لكل منتج -->
-                        <div class="modal fade" id="seedModal{{ seed.pk }}" tabindex="-1" aria-labelledby="seedModalLabel{{ seed.pk }}" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content" dir="rtl">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="seedModalLabel{{ seed.pk }}">تفاصيل المنتج</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="{{ seed.img_url }}" alt="" class="img-fluid mb-3" style="width: 100%; height: auto;">
-                                        <h5>{{ seed.name_s }}</h5>
-                                        {% if seed.descript %}
-                                            <p>{{ seed.descript }}</p>
-                                        {% else %}
-                                            <p class="text-muted">لا يوجد وصف متاح</p>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                            <div class="row g-4"></div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    {% if show_more %}
-                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="?show=all">تصفح المزيد من المنتجات</a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
-</div>
-<!-- Product End -->
+  {% endfor %}
 
-<script src="{% static 'js/script.js' %}"></script>
-{% endblock content %}
+  {# 2 البطاقات العادية لبقية المنتجات (شكلها القديم) #}
+  <div class="row g-4">
+    {% for seed in normal_products %}
+      <div class="col-lg-3 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="product-item" style = "width:250">
+          <div class="position-relative bg-light overflow-hidden">
+            <img src="{{ seed.img_url }}"
+                 alt="{{ seed.name_s }}"
+                 style="width:100%; height:350px; object-fit:cover;">
+          </div>
+          <div class="text-center p-4">
+            <a class="d-block h5 mb-2" href="#">{{ seed.name_s }}</a>
+          </div>
+          <div class="d-flex border-top">
+            <small class="w-50 text-center border-end py-2">
+              <a class="text-body" href="#" data-bs-toggle="modal"
+                 data-bs-target="#seedModal{{ seed.pk }}">
+                <i class="fa fa-eye text-primary me-2"></i>عرض التفاصيل
+              </a>
+            </small>
+            <small class="w-50 text-center py-2">
+              <a class="text-body" href="#">
+                <i class="fa fa-shopping-bag text-primary me-2"></i>أضف إلى السلة
+              </a>
+            </small>
+          </div>
+        </div>
+      </div>
+
+      {# مودال لكل منتج #}
+      <div class="modal fade" id="seedModal{{ seed.pk }}" tabindex="-1"
+           aria-labelledby="seedModalLabel{{ seed.pk }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" dir="rtl">
+            <div class="modal-header">
+              <h5 class="modal-title" id="seedModalLabel{{ seed.pk }}">تفاصيل المنتج</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+              <img src="{{ seed.img_url }}" class="img-fluid mb-3" alt=""
+                   style="width:100%; height:auto;">
+              <h5>{{ seed.name_s }}</h5>
+              {% if seed.descript %}
+                <p>{{ seed.descript }}</p>
+              {% else %}
+                <p class="text-muted">لا يوجد وصف متاح</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">لا توجد منتجات لعرضها.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{# Swiper CSS & JS - يمكنك نقلهما إلى base.html #}
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.swiper-container').forEach(function (container) {
+      new Swiper(container, {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        navigation: {
+          nextEl: container.querySelector('.swiper-button-next'),
+          prevEl: container.querySelector('.swiper-button-prev'),
+        },
+        breakpoints: {
+          576: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+          1200:{ slidesPerView: 4 },
+        },
+      });
+    });
+  });
+</script>
+
+{% endblock %}

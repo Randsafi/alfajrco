@@ -1,6 +1,8 @@
+from collections import defaultdict
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import seeds
+from collections import defaultdict
+from .models import seeds ,x
 from .forms import SEED_SEARCH
 # Create your views here.
 
@@ -10,27 +12,32 @@ def pagehome(request):
     return render(request,'alfajr/index.html' ,{'categories':categories})
 
 def product(request, category):
+    # جلب كل المنتجات من الفئة المحددة
     all_seeds = seeds.objects.filter(catgory=category).order_by('name_s')
 
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.GET.get('show') == 'all':
-        results = []
-        for seed in all_seeds:
-            results.append({
-                'name_s': seed.name_s,
-                'img_url': seed.img_url,
-            })
-        return JsonResponse({'seeds': results})
+    # تجميع المنتجات حسب الـ classification
+    groups = defaultdict(list)
+    normal_products = []
+    for s in all_seeds:
+        if s.classification:
+            groups[s.classification].append(s)
+        else:
+            normal_products.append(s)
 
-    if request.GET.get('show') == 'all':
-        first_seeds = all_seeds
-        show_more = False
-    else:
-        first_seeds = all_seeds[:8]
-        show_more = all_seeds.count() > 8
+    # نهيّئ قائمتين: sliders للمجموعات الأكبر من 1، والباقي يبقى في normal_products
+    slider_groups = []
+    for cls, items in groups.items():
+        if len(items) > 1:
+            slider_groups.append({
+                'classification': cls,
+                'items': items
+            })
+        else:
+            normal_products.extend(items)
 
     return render(request, 'alfajr/product.html', {
-        'seed': first_seeds,
-        'show_more': show_more,
+        'slider_groups': slider_groups,
+        'normal_products': normal_products,
         'category': category,
     })
 

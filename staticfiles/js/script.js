@@ -71,4 +71,31 @@ function showDetails(name, imageUrl, description) {
     document.getElementById("modalDescription").textContent = description || "لا يوجد وصف متاح";
 }
 
+$(document).ready(function(){
+    // Initialize Owl Carousel
+    $('.related-slider').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: false,
+        responsive: {
+            0: { items: 1 },
+            576: { items: 2 },
+            768: { items: 3 },
+            992: { items: 4 }
+        },
+        navText: [
+            '<i class="fa fa-chevron-right"></i>',
+            '<i class="fa fa-chevron-left"></i>'
+        ]
+    });
+    
+    // Fallback for broken images
+    document.querySelectorAll('img').forEach(img => {
+        img.onerror = function() {
+            this.src = "{% static 'images/default-product.png' %}";
+            this.alt = "صورة افتراضية";
+        };
+    });
+});
 
